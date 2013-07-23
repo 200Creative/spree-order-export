@@ -11,9 +11,9 @@ module OrderExport
         Rails.env.production? ? require(c) : load(c)
       end
 
-      Admin::ReportsController::AVAILABLE_REPORTS.merge!({:order_export => {:name => "Order Export", :description => "Order Export Description"}})
-      Admin::ReportsController.send(:require, RUBY_VERSION.split('.')[1].to_i > 8 ? 'csv' : 'fastercsv')
-      Admin::ReportsController.send(:include, OrderExport::ReportsControllerExt)
+      Spree::Admin::ReportsController::AVAILABLE_REPORTS.merge!({:order_export => {:name => "Order Export", :description => "Order Export Description"}})
+      Spree::Admin::ReportsController.send(:require, RUBY_VERSION.split('.')[1].to_i > 8 ? 'csv' : 'fastercsv')
+      Spree::Admin::ReportsController.send(:include, OrderExport::ReportsControllerExt)
     end
 
     config.to_prepare &method(:activate).to_proc
