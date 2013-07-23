@@ -16,4 +16,8 @@ en:
             quantity: Quantity
             order_total: Order total
             payment_method: Payment method
+            seller_name: Seller
+            item_total: Item price
+            tax_total: Tax
+            ship_total: Shipping
 

@@ -40,8 +40,12 @@ module OrderExport
               t('order_export_ext.header.address'),
               t('order_export_ext.header.phone'),
               t('order_export_ext.header.email'),
+              t('order_export_ext.header.seller_name'),
               t('order_export_ext.header.variant_name'),
               t('order_export_ext.header.quantity'),
+              t('order_export_ext.header.item_total'),
+              t('order_export_ext.header.tax_total'),
+              t('order_export_ext.header.ship_total'),              
               t('order_export_ext.header.order_total'),
             ]
 
@@ -54,23 +58,28 @@ module OrderExport
                 csv_line << order.completed_at
                 csv_line << order.number
 
-                if order.bill_address
-                  csv_line << order.bill_address.full_name
+                if order.ship_address
+                  csv_line << order.ship_address.full_name
                   address_line = ""
-                  address_line << order.bill_address.address1 + " " if order.bill_address.address1?
-                  address_line << order.bill_address.address2 + " " if order.bill_address.address2?
-                  address_line << order.bill_address.city + " " if order.bill_address.city?
-                  address_line << order.bill_address.country.name + " " if order.bill_address.country_id?
+                  address_line << order.ship_address.address1 + " " if order.ship_address.address1?
+                  address_line << order.ship_address.address2 + " " if order.ship_address.address2?
+                  address_line << order.ship_address.city + " " if order.ship_address.city?
+                  address_line << order.ship_address.country.name + " " if order.ship_address.country_id?
                   csv_line << address_line
-                  csv_line << order.bill_address.phone if order.bill_address.phone?
+                  csv_line << order.ship_address.phone if order.ship_address.phone?
                 else
                   csv_line << ""
                   csv_line << ""
                   csv_line << ""
                 end
                 csv_line << order.email || ""
+                csv_line << line_item.variant.product.taxons.joins(:taxonomy).where(:spree_taxonomies => { :name => 'Seller' }).first.name
                 csv_line << line_item.variant.name
                 csv_line << line_item.quantity
+                # since all orders only have just one line item, we can use totals for these columns
+                csv_line << order.item_total.to_s
+                csv_line << order.tax_total.to_s
+                csv_line << order.ship_total.to_s
                 csv_line << order.total.to_s
                 csv << csv_line
               end
