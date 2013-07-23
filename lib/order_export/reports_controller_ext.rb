@@ -24,7 +24,7 @@ module OrderExport
 
           params[:search][:order] ||= "descend_by_created_at"
 
-          @search = Order.searchlogic(params[:search])
+          @search = Spree::Order.searchlogic(params[:search])
 
           render and return unless export
 
