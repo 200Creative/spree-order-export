@@ -12,7 +12,7 @@ module OrderExport
       end
       
       # fix broken translation on core reports
-      I18n.load_path << OrderExport::Engine.config.paths["config/locales"].first
+      I18n.load_path << Spree::Core::Engine.config.paths["config/locales"].first
       I18n.locale = I18n.default_locale
       I18n.reload!
   
