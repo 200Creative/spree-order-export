@@ -12,9 +12,9 @@
     </div>
     
     <div class="align-center">
-        <%= s.check_box :completed_at_not_null, {:style => 'vertical-align: middle'} do %>
-            <label><%= t("only_show_complete_orders") %></label>
-        <% end %>
+        <label>
+          <%= s.check_box :completed_at_not_null, {:style => 'vertical-align: middle'} %> <%= t("only_show_complete_orders") %>
+        </label>
     </div>
 
     <div class="actions filter-actions">
