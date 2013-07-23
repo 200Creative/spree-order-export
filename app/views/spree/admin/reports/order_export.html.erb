@@ -1,11 +1,17 @@
-<h1><%= t("order_export") %> </h1>
+<% content_for :page_title do %>
+  <%= t(:order_export) %>
+<% end %>
 
-<p>
-  <%= t('order_export_help') %>
-</p>
+<% content_for :page_actions do %>
+  <li><%= link_to_with_icon 'icon-arrow-left', t(:back_to_reports_list), spree.admin_reports_url, :class => 'button' %></li>
+<% end %>
 
 
-<% content_for :sidebar do %>
+<% content_for :table_filter_title do %>
+  <%= t(:date_range) %>
+<% end %>
+
+<% content_for :table_filter do %>
   <%= render :partial => 'spree/admin/shared/export_criteria', :locals => {} %>
 <% end %>
 

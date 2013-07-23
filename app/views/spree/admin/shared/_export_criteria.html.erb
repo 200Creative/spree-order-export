@@ -1,20 +1,23 @@
-<%= search_form_for @q, :url => spree.order_export_admin_reports_path do |s| %>
-    <label><%= t("date_range") %></label><br />
-    <div class="yui-g date-range-filter">
-      <div class="yui-u sub-field first">
-        <%= s.text_field :created_at_gt, :class => 'datepicker' %><br />
-        <label class="sub"><%= t("start") %></label>
-      </div>
-      <div class="yui-u sub-field">
-        <%= s.text_field :created_at_lt, :class => 'datepicker' %><br />
-        <label><%= t("stop") %></label>
-      </div>
-      <div class="yui-u sub-field">
-        <%= s.check_box :completed_at_not_null, {:style => 'vertical-align: middle'} %><br />
-        <label><%= t("only_show_complete_orders") %></label>
-      </div>
+<%= search_form_for @search, :url => spree.order_export_admin_reports_path do |s| %>
+    <div class="date-range-filter field align-center">
+        <%= label_tag nil, t(:start), :class => 'inline' %>
+        <%= s.text_field :created_at_gt, :class => 'datepicker datepicker-from' %>
+        
+        <span class="range-divider">
+          <i class="icon-arrow-right"></i>
+        </span>
+
+        <%= s.text_field :created_at_lt, :class => 'datepicker datepicker-to' %>
+        <%= label_tag nil, t(:end), :class => 'inline' %>
+    </div>
+    
+    <div class="align-center">
+        <%= s.check_box :completed_at_not_null, {:style => 'vertical-align: middle'} do %>
+            <label><%= t("only_show_complete_orders") %></label>
+        <% end %>
     </div>
 
-    <p><%= button t("search") %></p>
+    <div class="actions filter-actions">
+        <%= button t(:search), 'icon-search'  %>
+    </div>
 <% end %>
-

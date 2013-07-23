@@ -24,11 +24,11 @@ module OrderExport
 
           params[:q][:order] ||= "descend_by_created_at"
 
-          @q = Spree::Order.search(params[:q])
+          @search = Spree::Order.search(params[:q])
 
           render and return unless export
 
-          @orders = @q.result(:distinct => true)
+          @orders = @search.result(:distinct => true)
 
 
           orders_export = CSV.generate(:col_sep => ",", :row_sep => "\r\n") do |csv|
