@@ -4,31 +4,31 @@ module OrderExport
       base.class_eval do
 
         def order_export
-          export = !params[:search].nil?
-          params[:search] = {} unless params[:search]
+          export = !params[:q].nil?
+          params[:q] = {} unless params[:q]
 
-          if params[:search][:created_at_greater_than].blank?
-            params[:search][:created_at_greater_than] = Time.zone.now.beginning_of_month
+          if params[:q][:created_at_greater_than].blank?
+            params[:q][:created_at_greater_than] = Time.zone.now.beginning_of_month
           else
-            params[:search][:created_at_greater_than] = Time.zone.parse(params[:search][:created_at_greater_than]).beginning_of_day rescue Time.zone.now.beginning_of_month
+            params[:q][:created_at_greater_than] = Time.zone.parse(params[:q][:created_at_greater_than]).beginning_of_day rescue Time.zone.now.beginning_of_month
           end
 
-          if params[:search] && !params[:search][:created_at_less_than].blank?
-            params[:search][:created_at_less_than] = Time.zone.parse(params[:search][:created_at_less_than]).end_of_day rescue ""
+          if params[:q] && !params[:q][:created_at_less_than].blank?
+            params[:q][:created_at_less_than] = Time.zone.parse(params[:q][:created_at_less_than]).end_of_day rescue ""
           end
 
-          params[:search][:completed_at_not_null] ||= "1"
-          if params[:search].delete(:completed_at_not_null) == "1"
-            params[:search][:completed_at_not_null] = true
+          params[:q][:completed_at_not_null] ||= "1"
+          if params[:q].delete(:completed_at_not_null) == "1"
+            params[:q][:completed_at_not_null] = true
           end
 
-          params[:search][:order] ||= "descend_by_created_at"
+          params[:q][:order] ||= "descend_by_created_at"
 
-          @search = Spree::Order.search(params[:search])
+          @q = Spree::Order.search(params[:q])
 
           render and return unless export
 
-          @orders = @search.do_search
+          @orders = @q.do_search
 
 
           orders_export = FasterCSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
