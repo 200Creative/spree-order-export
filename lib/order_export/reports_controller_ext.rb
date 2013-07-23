@@ -28,10 +28,10 @@ module OrderExport
 
           render and return unless export
 
-          @orders = @q.result(:distinct => true)
+          @orders = @q.result(:distinct => trueF)
 
 
-          orders_export = FasterCSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
+          orders_export = CSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
             headers = [
               t('order_export_ext.header.last_updated'),
               t('order_export_ext.header.completed_at'),
