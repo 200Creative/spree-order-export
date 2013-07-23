@@ -28,7 +28,7 @@ module OrderExport
 
           render and return unless export
 
-          @orders = @q.do_search
+          @orders = @q.result(:distinct => true)
 
 
           orders_export = FasterCSV.generate(:col_sep => ";", :row_sep => "\r\n") do |csv|
