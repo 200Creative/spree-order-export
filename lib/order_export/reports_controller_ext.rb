@@ -66,7 +66,7 @@ module OrderExport
                   address_line << order.ship_address.city + " " if order.ship_address.city?
                   address_line << order.ship_address.country.name + " " if order.ship_address.country_id?
                   csv_line << address_line
-                  csv_line << order.ship_address.phone if order.ship_address.phone?
+                  csv_line << order.ship_address.phone || ""
                 else
                   csv_line << ""
                   csv_line << ""
