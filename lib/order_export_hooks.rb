@@ -1,3 +1,3 @@
-class OrderExportHooks < Spree::ThemeSupport::HookListener
-  # custom hooks go here
-end
+# class OrderExportHooks < Spree::ThemeSupport::HookListener
+#   # custom hooks go here
+# end
