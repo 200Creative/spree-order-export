@@ -66,6 +66,7 @@ module OrderExport
                 else
                   csv_line << ""
                   csv_line << ""
+                  csv_line << ""
                 end
                 csv_line << order.email || ""
                 csv_line << line_item.variant.name
