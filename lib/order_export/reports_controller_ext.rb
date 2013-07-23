@@ -43,7 +43,6 @@ module OrderExport
               t('order_export_ext.header.variant_name'),
               t('order_export_ext.header.quantity'),
               t('order_export_ext.header.order_total'),
-              t('order_export_ext.header.payment_method')
             ]
 
             csv << headers
@@ -72,7 +71,6 @@ module OrderExport
                 csv_line << line_item.variant.name
                 csv_line << line_item.quantity
                 csv_line << order.total.to_s
-                csv_line << order.payment_method.name
                 csv << csv_line
               end
             end
